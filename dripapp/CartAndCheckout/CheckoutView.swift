@@ -461,12 +461,7 @@ struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
         // Create a mock CartManager with placeholder items
         let cartManager = CartManager()
-        
-        // Add multiple placeholder items to simulate a more realistic cart
-        for _ in 0..<3 {
-            let placeholderItem = ItemData.placeholder()
-            cartManager.addToCart(placeholderItem)
-        }
+
 
         return CheckoutView()
             .environmentObject(cartManager)

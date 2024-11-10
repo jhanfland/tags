@@ -233,13 +233,3 @@ struct PriceAndActionsView: View {
 }
 
 
-struct ItemDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        let placeholderItem = ItemData.placeholder()
-        
-        return NavigationView {
-            ItemDetailView(item: placeholderItem)
-                .environmentObject(CartManager.shared)
-        }
-    }
-}

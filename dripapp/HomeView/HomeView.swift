@@ -216,28 +216,41 @@ struct HomeView: View {
         }
     }
     
-    // Added methods for data loading and pagination
+
     private func loadInitialItems() {
+        // Comment: Using unique IDs for each placeholder item
         isLoading = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             for gender in Gender.allCases {
                 let categoriesForGender = gender == .mens ? categories : categories
                 for (category, _) in categoriesForGender {
-                    items[gender, default: [:]][category] = (0..<20).map { _ in ItemData.placeholder() }
+                    // Updated: Generate placeholders with unique IDs
+                    let placeholderItems = (0..<20).map { index in
+                        var item = ItemData.placeholder()
+                        item.id = "\(gender)-\(category)-\(index)-\(UUID().uuidString)"
+                        return item
+                    }
+                    items[gender, default: [:]][category] = placeholderItems
                 }
             }
             isLoading = false
             currentPage = 1
         }
     }
-    
+
     private func loadMoreItems(for category: String) {
         guard !isLoading && hasMoreItems else { return }
         isLoading = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let newItems = (0..<20).map { _ in ItemData.placeholder() }
-            items[selectedGender, default: [:]][category, default: []].append(contentsOf: newItems)
+            // Comment: Generate new placeholders with unique IDs based on current count
+            let currentCount = self.items[selectedGender, default: [:]][category, default: []].count
+            let newPlaceholderItems = (0..<20).map { index in
+                var item = ItemData.placeholder()
+                item.id = "\(selectedGender)-\(category)-\(currentCount + index)-\(UUID().uuidString)"
+                return item
+            }
+            items[selectedGender, default: [:]][category, default: []].append(contentsOf: newPlaceholderItems)
             
             currentPage += 1
             isLoading = false

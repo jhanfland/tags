@@ -43,7 +43,7 @@ struct ItemData: Identifiable, Codable {
     
     static func placeholder() -> ItemData {
         return ItemData(
-            id: UUID().uuidString,
+            id: nil,
             userId: "placeholderUser",
             description: "Sample description",
             gender: "Men's",
