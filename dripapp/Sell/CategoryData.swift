@@ -102,17 +102,4 @@ struct CategoryData {
             return []
         }
     }
-
-    static func sizesForCategory(_ category: String) -> [String] {
-        switch category {
-        case "Tops", "Shirts", "Outerwear", "Dresses", "Swimwear", "Pullovers", "Jackets":
-            return topSizes
-        case "Bottoms":
-            return bottomSizes
-        case "Shoes":
-            return shoeSizes
-        default:
-            return topSizes + bottomSizes + shoeSizes
-        }
-    }
 }

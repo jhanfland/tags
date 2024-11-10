@@ -4,74 +4,71 @@ import Kingfisher
 // Add comment: Simplified ItemDetailView using shared components
 struct ItemDetailView: View {
     let item: ItemData
+    let isLoading: Bool // Add this parameter but default to false
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject private var cartManager: CartManager
     @State private var isSaved = false
     @State private var showingMessageInput = false
     @State private var messageText = ""
     @AppStorage("savedItems") private var savedItemsData: Data = Data()
-    @State private var isLoading = true
+    
+    init(item: ItemData, isLoading: Bool = false) {
+        self.item = item
+        self.isLoading = isLoading
+    }
     
     var body: some View {
-        ZStack {
-            ScrollView {
-                VStack(spacing: 8) {
-                    ImageCarouselView(
-                        imageUrls: item.imageUrls,
-                        height: 300,
-                        width: UIScreen.main.bounds.width * 0.8
-                    )
-                    .padding(.top, 15)
-                    
-                    if !isLoading {
-                        PriceAndActionsView(
-                            price: item.price ?? "N/A",
-                            itemId: item.id,
-                            sellerId: item.userId,
-                            itemImageUrls: item.imageUrls ?? [],
-                            isSaved: $isSaved,
-                            onMessageTap: { showingMessageInput = true },
-                            onSaveTap: toggleSaved
-                        )
-                        
-                        Text(item.description)
-                            .font(.system(size: 14))
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 22)
-                            .padding(.vertical, 5)
-                        
-                        itemAttributesGrid
-                        
-                        SharedButtonStyles.primaryButton(
-                            title: "Add to Cart",
-                            action: addToCart
-                        )
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 12)
-                    }
-                }
-            }
-            
-            if isLoading {
-                ProgressView()
-                    .scaleEffect(1.5)
-                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
-            }
-            
-            if showingMessageInput {
-                MessageInput(
-                    isShowing: $showingMessageInput,
-                    messageText: $messageText,
-                    onSend: sendMessage
+        ScrollView {
+            VStack(spacing: 8) {
+                ImageCarouselView(
+                    imageUrls: item.imageUrls,
+                    height: 300,
+                    width: UIScreen.main.bounds.width * 0.8
                 )
+                .padding(.top, 15)
+                
+                PriceAndActionsView(
+                    price: item.price ?? "N/A",
+                    itemId: item.id,
+                    sellerId: item.userId,
+                    itemImageUrls: item.imageUrls ?? [],
+                    isSaved: $isSaved,
+                    onMessageTap: { showingMessageInput = true },
+                    onSaveTap: toggleSaved
+                )
+                
+                Text(item.description)
+                    .font(.system(size: 14))
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 22)
+                    .padding(.vertical, 5)
+                
+                itemAttributesGrid
+                
+                SharedButtonStyles.primaryButton(
+                    title: "Add to Cart",
+                    action: addToCart
+                )
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
             }
         }
         .navigationBarTitle("Item Details", displayMode: .inline)
         .navigationBarItems(trailing: Button("Done") { presentationMode.wrappedValue.dismiss() })
         .onAppear {
             checkIfSaved()
-            isLoading = false
         }
+        .overlay(
+            Group {
+                if showingMessageInput {
+                    MessageInput(
+                        isShowing: $showingMessageInput,
+                        messageText: $messageText,
+                        onSend: sendMessage
+                    )
+                }
+            }
+        )
     }
     
     private var itemAttributesGrid: some View {

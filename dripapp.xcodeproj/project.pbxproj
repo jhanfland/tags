@@ -55,6 +55,7 @@
 		0EDA95122C832648005F0844 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA95112C832648005F0844 /* Gender.swift */; };
 		0EE47D342C8133E200CCEB94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EE47D332C8133E200CCEB94 /* GoogleService-Info.plist */; };
 		0EE8BC952C71F61800D90C59 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8BC942C71F61800D90C59 /* SettingsView.swift */; };
+		0EEA92EB2CE0C1AE00B17925 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0EEA92EA2CE0C1AE00B17925 /* config.plist */; };
 		0EEB836E2C81408900F270CF /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEB836D2C81408900F270CF /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,7 @@
 		0EDA95112C832648005F0844 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
 		0EE47D332C8133E200CCEB94 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0EE8BC942C71F61800D90C59 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		0EEA92EA2CE0C1AE00B17925 /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
 		0EEB836D2C81408900F270CF /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -296,6 +298,7 @@
 				0EB85BE32C4EBFD000846111 /* dripapp.xcdatamodeld */,
 				0EB85BEB2C4EBFD100846111 /* Preview Content */,
 				0EDA95112C832648005F0844 /* Gender.swift */,
+				0EEA92EA2CE0C1AE00B17925 /* config.plist */,
 			);
 			path = dripapp;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EEA92EB2CE0C1AE00B17925 /* config.plist in Resources */,
 				0EB85BED2C4EBFD100846111 /* Preview Assets.xcassets in Resources */,
 				0EB85BE92C4EBFD100846111 /* Assets.xcassets in Resources */,
 				0EE47D342C8133E200CCEB94 /* GoogleService-Info.plist in Resources */,

@@ -401,10 +401,9 @@ struct InfiniteScrollView: View {
             .padding(.horizontal, 10)
             .padding(.top, 10)
         }
-        .sheet(isPresented: $showingItemDetail) {
-            if let item = selectedItem {
-                ItemDetailView(item: item)
-            }
+        .sheet(item: $selectedItem) { item in
+            ItemDetailView(item: item) 
+                .environmentObject(CartManager.shared)
         }
     }
 }
