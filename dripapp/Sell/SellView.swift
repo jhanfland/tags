@@ -104,24 +104,33 @@ struct SellView: View {
     private func handleNewItem(_ result: Result<ItemData, Error>) {
         switch result {
         case .success(let newItem):
+            // Add the already-loading item to the list
+            savedItems.insert(newItem, at: 0)
+            activeListings = savedItems.count
+            // Process the item
             addNewItem(newItem)
         case .failure(let error):
             print("Error adding new item: \(error.localizedDescription)")
-            // Could use shared error handling here
             AppUtilities.shared.showError(error.localizedDescription, in: UIView())
         }
     }
-    
+
     private func addNewItem(_ item: ItemData) {
         Task {
             do {
                 let savedItem = try await firebaseManager.saveProduct(item)
                 await MainActor.run {
-                    savedItems.insert(savedItem, at: 0)
+                    // Replace the loading item with the completed item
+                    if let index = savedItems.firstIndex(where: { $0.id == item.id }) {
+                        savedItems[index] = savedItem
+                    }
                     activeListings = savedItems.count
                 }
             } catch {
                 await MainActor.run {
+                    // Remove the loading item if there was an error
+                    savedItems.removeAll(where: { $0.id == item.id })
+                    activeListings = savedItems.count
                     AppUtilities.shared.showError(error.localizedDescription, in: UIView())
                 }
             }

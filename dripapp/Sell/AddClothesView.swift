@@ -77,16 +77,18 @@ struct AddClothesView: View {
     }
     
     private func createItem() {
-        Task {
-            do {
-                let item = try await viewModel.createAndSaveItem()
-                onSave(.success(item))
-                dismiss()
-            } catch {
-                onSave(.failure(error))
+            Task {
+                do {
+                    // Create initial item in loading state
+                    var initialItem = try await viewModel.createAndSaveItem()
+                    initialItem.isLoading = true
+                    onSave(.success(initialItem))
+                    dismiss()
+                } catch {
+                    onSave(.failure(error))
+                }
             }
         }
-    }
 }
 
 // Add comment: Updated ViewModel with simplified logic
@@ -154,8 +156,6 @@ class AddClothesViewModel: ObservableObject {
         )
     }
 }
-
-// Add comment: Custom error types
 enum ItemError: LocalizedError {
     case noImages
     
