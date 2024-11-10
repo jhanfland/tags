@@ -83,9 +83,6 @@ struct SignInView: View {
                 }
                 .padding(.bottom, 50)
             }
-            .alert(isPresented: $authManager.showingError) {
-                Alert(title: Text("Error"), message: Text(authManager.errorMessage), dismissButton: .default(Text("OK")))
-            }
             .navigationDestination(isPresented: $shouldNavigateToHome) {
                 HomeView()
             }

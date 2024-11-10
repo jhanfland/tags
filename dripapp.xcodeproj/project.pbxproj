@@ -12,7 +12,6 @@
 		0E1355992C57F67D00817D39 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1355982C57F67D00817D39 /* SearchView.swift */; };
 		0E13559B2C57F6C400817D39 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E13559A2C57F6C400817D39 /* ProfileView.swift */; };
 		0E13559D2C57F6D800817D39 /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E13559C2C57F6D800817D39 /* MessagesView.swift */; };
-		0E13559F2C57F79500817D39 /* ListingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E13559E2C57F79500817D39 /* ListingData.swift */; };
 		0E1355A12C57F7AF00817D39 /* SellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1355A02C57F7AF00817D39 /* SellView.swift */; };
 		0E1355A72C59E4EF00817D39 /* CategoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1355A62C59E4EF00817D39 /* CategoryData.swift */; };
 		0E1B194E2C4EF4F700E1DBAA /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B194D2C4EF4F700E1DBAA /* Models.swift */; };
@@ -42,7 +41,6 @@
 		0E7FF78D2C74550C0018D8A6 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7FF78C2C74550C0018D8A6 /* ItemDetailView.swift */; };
 		0EA17DCC2C7252EC00547D29 /* AddressCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA17DCB2C7252EC00547D29 /* AddressCompleter.swift */; };
 		0EA17DCE2C72946800547D29 /* CheckoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EA17DCD2C72946800547D29 /* CheckoutView.swift */; };
-		0EA66F992C72A17400E790E6 /* Stripe in Frameworks */ = {isa = PBXBuildFile; productRef = 0EA66F982C72A17400E790E6 /* Stripe */; };
 		0EA66F9B2C72A17400E790E6 /* StripeApplePay in Frameworks */ = {isa = PBXBuildFile; productRef = 0EA66F9A2C72A17400E790E6 /* StripeApplePay */; };
 		0EA66F9D2C72A17400E790E6 /* StripePaymentSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 0EA66F9C2C72A17400E790E6 /* StripePaymentSheet */; };
 		0EB85BE02C4EBFD000846111 /* dripappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB85BDF2C4EBFD000846111 /* dripappApp.swift */; };
@@ -84,7 +82,6 @@
 		0E1355982C57F67D00817D39 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		0E13559A2C57F6C400817D39 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0E13559C2C57F6D800817D39 /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
-		0E13559E2C57F79500817D39 /* ListingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingData.swift; sourceTree = "<group>"; tabWidth = 5; };
 		0E1355A02C57F7AF00817D39 /* SellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellView.swift; sourceTree = "<group>"; };
 		0E1355A62C59E4EF00817D39 /* CategoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryData.swift; sourceTree = "<group>"; };
 		0E1B194D2C4EF4F700E1DBAA /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
@@ -131,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E2455CD2C85B18500D8FAF4 /* Kingfisher in Frameworks */,
-				0EA66F992C72A17400E790E6 /* Stripe in Frameworks */,
 				0E7B9FEA2C7F00930020E31D /* FirebaseAuth in Frameworks */,
 				0E7B9FF22C7F00930020E31D /* FirebaseStorage in Frameworks */,
 				0E7B9FEE2C7F00930020E31D /* FirebaseMessaging in Frameworks */,
@@ -209,7 +205,6 @@
 				0E1355A62C59E4EF00817D39 /* CategoryData.swift */,
 				0EB85C0F2C4ED2EB00846111 /* OpenAIManager.swift */,
 				0E1B194D2C4EF4F700E1DBAA /* Models.swift */,
-				0E13559E2C57F79500817D39 /* ListingData.swift */,
 				0E2455C92C85A22C00D8FAF4 /* AddClothesView.swift */,
 			);
 			path = Sell;
@@ -350,7 +345,6 @@
 			);
 			name = dripapp;
 			packageProductDependencies = (
-				0EA66F982C72A17400E790E6 /* Stripe */,
 				0EA66F9A2C72A17400E790E6 /* StripeApplePay */,
 				0EA66F9C2C72A17400E790E6 /* StripePaymentSheet */,
 				0E7B9FE72C7F00930020E31D /* FirebaseAnalytics */,
@@ -412,7 +406,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					0EB85BDB2C4EBFD000846111 = {
 						CreatedOnToolsVersion = 15.4;
@@ -506,7 +500,6 @@
 				0EB85BE52C4EBFD000846111 /* dripapp.xcdatamodeld in Sources */,
 				0E2420AC2C6703B60054E508 /* SearchResultsTabs.swift in Sources */,
 				0E2455C82C85201400D8FAF4 /* FirebaseProductManager.swift in Sources */,
-				0E13559F2C57F79500817D39 /* ListingData.swift in Sources */,
 				0E36B5322CE00AD200C0DAE8 /* NessiePaymentManager.swift in Sources */,
 				0E1B194E2C4EF4F700E1DBAA /* Models.swift in Sources */,
 				0EBDB1B62C5C383200E78A28 /* SearchResultsView.swift in Sources */,
@@ -589,6 +582,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -651,6 +645,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -768,10 +763,10 @@
 		0EB85C0A2C4EBFD200846111 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X7H7S23R28;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -791,10 +786,10 @@
 		0EB85C0B2C4EBFD200846111 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X7H7S23R28;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -814,9 +809,9 @@
 		0EB85C0D2C4EBFD200846111 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X7H7S23R28;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -836,9 +831,9 @@
 		0EB85C0E2C4EBFD200846111 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = X7H7S23R28;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -989,11 +984,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0E7B9FF82C7F180B0020E31D /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
-		};
-		0EA66F982C72A17400E790E6 /* Stripe */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0EA66F972C72A17400E790E6 /* XCRemoteSwiftPackageReference "stripe-ios" */;
-			productName = Stripe;
 		};
 		0EA66F9A2C72A17400E790E6 /* StripeApplePay */ = {
 			isa = XCSwiftPackageProductDependency;

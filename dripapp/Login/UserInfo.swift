@@ -20,7 +20,11 @@ struct UserInfo: Codable, Identifiable, Equatable {
     var shoeSizes: Set<String>
     var sellerRating: Double
     var salesCount: Int
-    
+    enum Gender: String, Codable {
+            case mens = "Men's"
+            case womens = "Women's"
+            case all = "All"
+        }
     var fullName: String {
         return "\(firstName) \(lastName)"
     }

@@ -9,7 +9,6 @@ struct dripappApp: App {
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var userManager = UserManager.shared
     @StateObject private var colorSchemeManager = ColorSchemeManager()
-    @StateObject private var conversationManager = ConversationManager()
     @StateObject private var cartManager = CartManager.shared
 
     var body: some Scene {
@@ -18,7 +17,6 @@ struct dripappApp: App {
                 .environmentObject(authManager)
                 .environmentObject(userManager)
                 .environmentObject(colorSchemeManager)
-                .environmentObject(conversationManager)
                 .environmentObject(cartManager)
                 .preferredColorScheme(colorSchemeManager.colorScheme)
         }
