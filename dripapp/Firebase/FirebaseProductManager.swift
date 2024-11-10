@@ -97,9 +97,7 @@ class FirebaseProductManager: ObservableObject {
         }
     }
     
-    // MARK: - Product Operations
-    
-    
+
     func saveProduct(_ product: ItemData) async throws -> ItemData {
         guard let user = Auth.auth().currentUser else {
             throw StorageError.authenticationRequired
