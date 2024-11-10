@@ -22,7 +22,7 @@ struct AddClothesView: View {
                 ScrollViewReader { proxy in
                     ScrollView {
                         VStack(spacing: 20) {
-                            SharedImageGrid(
+                            addImageGrid(
                                 images: $viewModel.uploadedImages,
                                 imageLabels: viewModel.imageLabels,
                                 currentIndex: $viewModel.currentImageIndex,
@@ -163,6 +163,95 @@ enum ItemError: LocalizedError {
         switch self {
         case .noImages:
             return "At least one image is required"
+        }
+    }
+}
+struct addImageGrid: View {
+    @Binding var images: [UIImage?]
+    let imageLabels: [String]
+    @Binding var currentIndex: Int
+    @Binding var showImagePicker: Bool
+    var onImageTap: (Int) -> Void
+    
+    private let imageWidth: CGFloat = UIScreen.main.bounds.width * 0.6
+    private let spacing: CGFloat = 10
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ScrollView(.horizontal, showsIndicators: false) {
+                ScrollViewReader { proxy in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<4) { index in
+                            imageBox(for: index)
+                                .frame(width: imageWidth)
+                                .padding(.vertical, 10)
+                                .id(index)
+                        }
+                    }
+                    .padding(.horizontal, geometry.size.width * 0.05)
+                    .onChange(of: images) { _, _ in
+                        if let nextEmpty = images.firstIndex(where: { $0 == nil }) {
+                            withAnimation {
+                                proxy.scrollTo(nextEmpty, anchor: .center)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .frame(height: 300)
+    }
+    
+    private func imageBox(for index: Int) -> some View {
+        ZStack {
+            if let image = images[index] {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: imageWidth, height: 280)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } else {
+                emptyImageBox(index: index)
+            }
+        }
+        .onTapGesture {
+            currentIndex = index
+            onImageTap(index)
+        }
+    }
+    
+    private func emptyImageBox(index: Int) -> some View {
+        RoundedRectangle(cornerRadius: 10)
+            .fill(Color.gray.opacity(0.2))
+            .frame(width: imageWidth, height: 280)
+            .overlay(
+                VStack(spacing: 8) {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.gray.opacity(0.4))
+                        .frame(width: 60, height: 60)
+                    
+                    Text(imageLabels[index])
+                        .font(.headline)
+                        .foregroundColor(.black)
+                    
+                    Text(imageInstructionFor(index: index))
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 5)
+                }
+            )
+    }
+    
+    private func imageInstructionFor(index: Int) -> String {
+        switch index {
+        case 0: return "Make sure the item fills the frame"
+        case 1: return "Ensure it's clear and close-up"
+        case 2: return "Include all identifying features"
+        case 3: return "Clear and fill the frame"
+        default: return ""
         }
     }
 }

@@ -113,9 +113,6 @@ struct ItemDetailView: View {
     }
     
     private func sendMessage() {
-        // Existing message sending logic
-        messageText = ""
-        showingMessageInput = false
     }
     
     private func checkIfSaved() {
@@ -149,6 +146,27 @@ struct ItemDetailView: View {
     }
 }
 
+// Add comment: Added missing ItemAttribute component
+struct ItemAttribute: View {
+    let title: String
+    let value: String
+    
+    var body: some View {
+        VStack(spacing: 2) {
+            Text(title)
+                .font(.system(size: 12, weight: .regular))
+                .foregroundColor(.gray)
+            Text(value)
+                .font(.system(size: 13, weight: .bold))
+                .foregroundColor(.black)
+                .lineLimit(1)
+                .truncationMode(.tail)
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .padding(.vertical, 4)
+        .padding(.horizontal, 6)
+    }
+}
 struct PriceAndActionsView: View {
     let price: String
     let itemId: String?

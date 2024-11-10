@@ -10,9 +10,7 @@ struct Cart: View {
     var body: some View {
         ZStack {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
-            
             VStack(spacing: 0) {
-                // Custom navigation bar
                 HStack {
                     Button(action: { presentationMode.wrappedValue.dismiss() }) {
                         Image(systemName: "chevron.left")
@@ -20,18 +18,17 @@ struct Cart: View {
                         Text("Back")
                             .foregroundColor(.primary)
                     }
-                    Spacer() // Spacer before the Cart text
+                    Spacer()
                     Text("Cart")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .padding(.leading, -60) // Negative padding to move "Cart" 20 points to the left
-                    Spacer() // Spacer after the Cart text
+                        .padding(.leading, -60)
+                    Spacer()
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 .padding(.bottom, 10)
-                
-                // Cart items list
+
                 if cartManager.items.isEmpty {
                     emptyCartView
                 } else {
@@ -49,10 +46,8 @@ struct Cart: View {
                         .padding(.horizontal)
                     }
                 }
-                
                 Spacer(minLength: 0)
                 
-                // Total and Checkout
                 if !cartManager.items.isEmpty {
                     VStack(spacing: 15) {
                         HStack {
@@ -225,37 +220,6 @@ struct CartItemView: View {
                     .fontWeight(.semibold)
             }
             .font(.footnote)
-        }
-    }
-}
-
-struct FullScreenImageView: View {
-    let image: UIImage
-    @State private var scale: CGFloat = 1.0
-    @State private var lastScale: CGFloat = 1.0
-    @Environment(\.presentationMode) var presentationMode
-
-    var body: some View {
-        NavigationView {
-            GeometryReader { geo in
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .scaleEffect(scale)
-                    .gesture(MagnificationGesture()
-                        .onChanged { value in
-                            let delta = value / lastScale
-                            lastScale = value
-                            scale *= delta
-                        }
-                        .onEnded { _ in
-                            lastScale = 1.0
-                        }
-                    )
-                    .navigationTitle("Checkout")
-                    .navigationBarTitleDisplayMode(.inline)
-            }
         }
     }
 }
