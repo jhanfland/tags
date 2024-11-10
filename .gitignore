@@ -1,5 +1,6 @@
 # macOS system files
 .DS_Store
+config.plist
 
 # Xcode build files
 build/
