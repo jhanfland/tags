@@ -8,7 +8,6 @@ struct dripappApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var authManager = AuthenticationManager.shared
     @StateObject private var userManager = UserManager.shared
-    @StateObject private var colorSchemeManager = ColorSchemeManager()
     @StateObject private var cartManager = CartManager.shared
 
     var body: some Scene {
@@ -16,9 +15,8 @@ struct dripappApp: App {
             RootView()
                 .environmentObject(authManager)
                 .environmentObject(userManager)
-                .environmentObject(colorSchemeManager)
                 .environmentObject(cartManager)
-                .preferredColorScheme(colorSchemeManager.colorScheme)
+                .preferredColorScheme(.light)
         }
     }
 }

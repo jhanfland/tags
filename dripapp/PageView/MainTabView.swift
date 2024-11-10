@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct MainTabView: View {
-    @StateObject private var colorSchemeManager = ColorSchemeManager()
         @EnvironmentObject private var authManager: AuthenticationManager
         @State private var selectedTab: Int = 0
         @State private var navigationPath = NavigationPath()
@@ -55,8 +54,8 @@ struct MainTabView: View {
                                         .tag(4)
                                         .environmentObject(authManager) // Pass authManager to ProfileView
                 }
-                            .accentColor(colorSchemeManager.accentColor)
-                            .preferredColorScheme(colorSchemeManager.colorScheme)
+                .accentColor(.black)
+                .preferredColorScheme(.light)
                             .toolbar(hideTabBar ? .hidden : .visible, for: .tabBar)
             .navigationDestination(for: String.self) { destination in
                 switch destination {
@@ -75,7 +74,6 @@ struct MainTabView: View {
         }
     
             .environmentObject(cartManager)
-            .environmentObject(colorSchemeManager)
         }
     }
 

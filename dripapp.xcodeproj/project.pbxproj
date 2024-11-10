@@ -24,7 +24,6 @@
 		0E2455CD2C85B18500D8FAF4 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2455CC2C85B18500D8FAF4 /* Kingfisher */; };
 		0E2D4BAE2C836AB000530077 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2D4BAD2C836AB000530077 /* UserInfo.swift */; };
 		0E36B5322CE00AD200C0DAE8 /* NessiePaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E36B5312CE00AD200C0DAE8 /* NessiePaymentManager.swift */; };
-		0E391D5D2C77362A0052E755 /* color-scheme-manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E391D5C2C77362A0052E755 /* color-scheme-manager.swift */; };
 		0E391D5F2C781BC60052E755 /* SavedItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E391D5E2C781BC60052E755 /* SavedItemsView.swift */; };
 		0E471B682CDFF0890014B907 /* AppUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E471B672CDFF0780014B907 /* AppUtilities.swift */; };
 		0E78C3422CE01F6500D82B0D /* Auth0 in Frameworks */ = {isa = PBXBuildFile; productRef = 0E78C3412CE01F6500D82B0D /* Auth0 */; };
@@ -93,7 +92,6 @@
 		0E2455C92C85A22C00D8FAF4 /* AddClothesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClothesView.swift; sourceTree = "<group>"; };
 		0E2D4BAD2C836AB000530077 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		0E36B5312CE00AD200C0DAE8 /* NessiePaymentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NessiePaymentManager.swift; sourceTree = "<group>"; };
-		0E391D5C2C77362A0052E755 /* color-scheme-manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "color-scheme-manager.swift"; path = "../../../../Downloads/color-scheme-manager.swift"; sourceTree = "<group>"; };
 		0E391D5E2C781BC60052E755 /* SavedItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedItemsView.swift; sourceTree = "<group>"; };
 		0E44AB702C7F2B24001331ED /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E471B672CDFF0780014B907 /* AppUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtilities.swift; sourceTree = "<group>"; };
@@ -222,7 +220,6 @@
 		0E2BDD982C768C5200B70D5F /* ProfileSettings */ = {
 			isa = PBXGroup;
 			children = (
-				0E391D5C2C77362A0052E755 /* color-scheme-manager.swift */,
 				0EE8BC942C71F61800D90C59 /* SettingsView.swift */,
 				0EA17DCB2C7252EC00547D29 /* AddressCompleter.swift */,
 				0E13559A2C57F6C400817D39 /* ProfileView.swift */,
@@ -483,7 +480,6 @@
 				0E391D5F2C781BC60052E755 /* SavedItemsView.swift in Sources */,
 				0E2420B02C67345E0054E508 /* CartManager.swift in Sources */,
 				0E1355A12C57F7AF00817D39 /* SellView.swift in Sources */,
-				0E391D5D2C77362A0052E755 /* color-scheme-manager.swift in Sources */,
 				0EA17DCE2C72946800547D29 /* CheckoutView.swift in Sources */,
 				0E1355A72C59E4EF00817D39 /* CategoryData.swift in Sources */,
 				0EE8BC952C71F61800D90C59 /* SettingsView.swift in Sources */,

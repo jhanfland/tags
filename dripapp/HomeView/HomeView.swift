@@ -8,7 +8,6 @@ struct HomeView: View {
     @Namespace private var animation
     @StateObject private var cartManager = CartManager.shared
     @State private var navigationPath = NavigationPath()
-    @EnvironmentObject private var colorSchemeManager: ColorSchemeManager
     
     // Added state variables for infinite scrolling and loading states
     @State private var isLoading = false
@@ -116,7 +115,7 @@ struct HomeView: View {
         NavigationLink(destination: Cart()) {
             Image(systemName: "cart")
                 .font(.title2)
-                .foregroundColor(colorSchemeManager.accentColor)
+                .foregroundColor(.black)
                 .padding(.trailing, 20)
                 .overlay(cartBadge)
         }
@@ -343,7 +342,6 @@ struct InfiniteScrollView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(ColorSchemeManager())
             .environmentObject(CartManager.shared)
     }
 }

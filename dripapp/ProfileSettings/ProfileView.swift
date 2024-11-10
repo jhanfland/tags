@@ -11,7 +11,6 @@ struct ProfileView: View {
     @State private var selectedTab = 0
     @State private var showingSettings = false
     @State private var isImagePickerPresented = false
-    @EnvironmentObject private var colorSchemeManager: ColorSchemeManager
 
     var body: some View {
         NavigationView {
@@ -66,7 +65,7 @@ struct ProfileView: View {
         .sheet(isPresented: $isImagePickerPresented) {
             SharedImagePicker(image: $viewModel.profileUIImage, sourceType: .photoLibrary)
         }
-        .preferredColorScheme(colorSchemeManager.colorScheme)
+        .preferredColorScheme(.light)
     }
 }
 struct ProfileHeader: View {
@@ -320,7 +319,6 @@ class ProfileViewModel: ObservableObject {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
-            .environmentObject(ColorSchemeManager())
             .environmentObject(AuthenticationManager.shared)
             .environmentObject(UserManager.shared)
     }
