@@ -218,7 +218,7 @@ struct SettingsView: View {
     private func signOut() {
         do {
             try Auth.auth().signOut()
-            authManager.isUserLoggedIn = false  // Update the authentication state
+            authManager.isUserLoggedIn = false
         } catch let error {
             showError("Error signing out: \(error.localizedDescription)")
         }

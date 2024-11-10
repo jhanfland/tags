@@ -4,7 +4,14 @@ import UIKit
 class OpenAIManager: ObservableObject {
     // MARK: - Properties
     // Added comment: Using environment variable or secure storage recommended for API key
-    private let apiKey = "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"
+    private var apiKey: String {
+        guard let path = Bundle.main.path(forResource: "config", ofType: "plist"),
+              let xml = FileManager.default.contents(atPath: path),
+              let config = try? PropertyListDecoder().decode([String: String].self, from: xml) else {
+            return ""
+        }
+        return config["OPENAI_API_KEY"] ?? ""
+    }
     // Added comment: Updated to latest OpenAI API endpoint
     private let baseURL = "https://api.openai.com/v1/chat/completions"
     
@@ -17,7 +24,7 @@ class OpenAIManager: ObservableObject {
         case invalidResponseStructure
         case noFunctionCall
         case decodingError(String)
-        case apiError(String)  // Added: New error case for API-specific errors
+        case apiError(String)  
     }
     
     // MARK: - OpenAI Response Struct

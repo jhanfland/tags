@@ -95,7 +95,7 @@ struct ProfileHeader: View {
 
 
 struct ProfileImageView: View {
-    @Binding var profileImage: UIImage? // Updated to use Binding<UIImage?>
+    @Binding var profileImage: UIImage?
     @Binding var isImagePickerPresented: Bool
 
     var body: some View {

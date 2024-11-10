@@ -318,6 +318,7 @@ struct SharedFilterButton: View {
         }
     }
 }
+// Add comment: Shared image grid component
 struct SharedImageGrid: View {
     @Binding var images: [UIImage?]
     let imageLabels: [String]

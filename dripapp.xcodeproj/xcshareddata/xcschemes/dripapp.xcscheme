@@ -85,6 +85,11 @@
             value = "1"
             isEnabled = "YES">
          </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "OPENAI_API_KEY"
+            value = "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"
+            isEnabled = "YES">
+         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
