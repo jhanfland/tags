@@ -8,13 +8,12 @@ struct HomeView: View {
     @Namespace private var animation
     @StateObject private var cartManager = CartManager.shared
     @State private var navigationPath = NavigationPath()
-    
-    // Added state variables for infinite scrolling and loading states
     @State private var isLoading = false
     @State private var currentPage = 1
     @State private var hasMoreItems = true
     @State private var items: [Gender: [String: [ItemData]]] = [.mens: [:], .womens: [:]]
-    
+    @StateObject private var firebaseManager = FirebaseProductManager()
+
     enum Gender: String, CaseIterable {
         case mens = "Men's"
         case womens = "Women's"
@@ -52,7 +51,6 @@ struct HomeView: View {
             VStack(spacing: 20) {
                 headerView
                 categoryScrollView
-                // Updated to use TabView with swipeable grid
                 itemGridView
             }
             .navigationBarHidden(true)
@@ -72,9 +70,7 @@ struct HomeView: View {
             }
         }
     }
-    
-    // MARK: - Subviews
-    
+
     private var headerView: some View {
         GeometryReader { geometry in
             HStack {
@@ -203,7 +199,6 @@ struct HomeView: View {
         .id(name)
     }
     
-    // MARK: - Helper Methods
     
     private func toggleGender() {
         selectedGender = selectedGender == .mens ? .womens : .mens
@@ -215,48 +210,88 @@ struct HomeView: View {
             selectedCategory = name
         }
     }
-    
 
     private func loadInitialItems() {
-        // Comment: Using unique IDs for each placeholder item
-        isLoading = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            for gender in Gender.allCases {
-                let categoriesForGender = gender == .mens ? categories : categories
-                for (category, _) in categoriesForGender {
-                    // Updated: Generate placeholders with unique IDs
-                    let placeholderItems = (0..<20).map { index in
-                        var item = ItemData.placeholder()
-                        item.id = "\(gender)-\(category)-\(index)-\(UUID().uuidString)"
-                        return item
+        Task {
+            do {
+                isLoading = true
+                let products = try await firebaseManager.fetchAllProducts()
+                var mensProducts: [String: [ItemData]] = [:]
+                var womensProducts: [String: [ItemData]] = [:]
+                for product in products {
+                    if product.gender == "Men's" {
+                        mensProducts[product.category, default: []].append(product)
+                        mensProducts["For You", default: []].append(product) // Add this line
+                    } else {
+                        womensProducts[product.category, default: []].append(product)
+                        womensProducts["For You", default: []].append(product) // Add this line
                     }
-                    items[gender, default: [:]][category] = placeholderItems
+                }
+                
+                // Update UI on main thread
+                await MainActor.run {
+                    items = [
+                        .mens: mensProducts,
+                        .womens: womensProducts
+                    ]
+                    isLoading = false
+                    currentPage = 1
+                    hasMoreItems = !products.isEmpty
+                }
+            } catch {
+                await MainActor.run {
+                    print("Error loading initial items: \(error.localizedDescription)")
+                    isLoading = false
+                    hasMoreItems = false
                 }
             }
-            isLoading = false
-            currentPage = 1
         }
     }
 
     private func loadMoreItems(for category: String) {
         guard !isLoading && hasMoreItems else { return }
-        isLoading = true
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // Comment: Generate new placeholders with unique IDs based on current count
-            let currentCount = self.items[selectedGender, default: [:]][category, default: []].count
-            let newPlaceholderItems = (0..<20).map { index in
-                var item = ItemData.placeholder()
-                item.id = "\(selectedGender)-\(category)-\(currentCount + index)-\(UUID().uuidString)"
-                return item
-            }
-            items[selectedGender, default: [:]][category, default: []].append(contentsOf: newPlaceholderItems)
-            
-            currentPage += 1
-            isLoading = false
-            
-            if currentPage >= 5 {
-                hasMoreItems = false
+        Task {
+            do {
+                isLoading = true
+                
+                // Get current items count for pagination
+                let currentItems = items[selectedGender]?[category] ?? []
+                
+                // Fetch next batch of products
+                let products = try await firebaseManager.fetchAllProducts()
+                
+                // Filter products for selected gender and category
+                let newProducts = products.filter { product in
+                    product.gender == selectedGender.rawValue &&
+                    product.category == category &&
+                    !currentItems.contains(where: { $0.id == product.id })
+                }
+                
+                await MainActor.run {
+                    // Create new dictionary for the update
+                    var updatedGenderItems = items[selectedGender] ?? [:]
+                    var updatedCategoryItems = updatedGenderItems[category] ?? []
+                    updatedCategoryItems.append(contentsOf: newProducts)
+                    updatedGenderItems[category] = updatedCategoryItems
+                    
+                    // Update the main items dictionary
+                    var newItems = items
+                    newItems[selectedGender] = updatedGenderItems
+                    items = newItems
+                    
+                    currentPage += 1
+                    isLoading = false
+                    
+                    // Update hasMoreItems based on whether we got a full page of results
+                    hasMoreItems = !newProducts.isEmpty
+                }
+            } catch {
+                await MainActor.run {
+                    print("Error loading more items: \(error.localizedDescription)")
+                    isLoading = false
+                    hasMoreItems = false
+                }
             }
         }
     }
@@ -268,43 +303,64 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Supporting Views
-
 struct ItemView: View {
     let item: ItemData
     let onTap: () -> Void
 
     var body: some View {
         Button(action: onTap) {
-            VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 4) {
+                // Image container with fixed aspect ratio
                 ZStack(alignment: .bottomLeading) {
                     if let firstImageUrl = item.imageUrls?.first,
                        let url = URL(string: firstImageUrl) {
                         KFImage(url)
+                            .placeholder {
+                                Rectangle()
+                                    .fill(Color.gray.opacity(0.2))
+                            }
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(height: 150)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .frame(width: UIScreen.main.bounds.width / 3 - 20, height: 150)
+                            .clipped()
+                            .cornerRadius(10)
                     } else {
                         Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .aspectRatio(0.85, contentMode: .fit)
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: UIScreen.main.bounds.width / 3 - 20, height: 150)
                             .cornerRadius(10)
                     }
 
-                    Text("$\(item.price ?? "N/A")")
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundColor(.black.opacity(0.7))
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.white.opacity(0.7))
-                        .clipShape(Capsule())
-                        .padding([.leading, .bottom], 8)
+                    // Price tag overlay
+                    if let price = item.price {
+                        Text("$\(price)")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.white.opacity(0.9))
+                            .cornerRadius(15)
+                            .padding(8)
+                    }
                 }
+
+                // Item details
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(item.brand)
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    
+                    Text(item.description)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .foregroundColor(.black)
+                }
+                .padding(.horizontal, 4)
+                .padding(.bottom, 8)
             }
             .background(Color.white)
             .cornerRadius(10)
-            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
+            .shadow(color: Color.black.opacity(0.1), radius: 2, x: 0, y: 1)
         }
     }
 }
@@ -320,17 +376,17 @@ struct InfiniteScrollView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: 5),
-                GridItem(.flexible(), spacing: 5),
-                GridItem(.flexible(), spacing: 5)
-            ], spacing: 5) {
+                GridItem(.flexible(), spacing: 10),
+                GridItem(.flexible(), spacing: 10),
+                GridItem(.flexible(), spacing: 10)
+            ], spacing: 10) {
                 ForEach(items) { item in
                     ItemView(item: item) {
                         selectedItem = item
                         showingItemDetail = true
                     }
                     .onAppear {
-                        if self.items.last?.id == item.id && hasMoreItems {
+                        if items.last?.id == item.id && hasMoreItems {
                             loadMore()
                         }
                     }
@@ -342,7 +398,8 @@ struct InfiniteScrollView: View {
                         .padding()
                 }
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 10)
+            .padding(.top, 10)
         }
         .sheet(isPresented: $showingItemDetail) {
             if let item = selectedItem {
@@ -351,7 +408,6 @@ struct InfiniteScrollView: View {
         }
     }
 }
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
