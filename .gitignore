@@ -1,0 +1,40 @@
+# macOS system files
+.DS_Store
+
+# Xcode build files
+build/
+DerivedData/
+
+# Xcode user-specific settings
+*.xcuserdatad
+*.xcuserdata
+*.xcworkspace
+*.xcuserstate
+
+# Swift Package Manager
+/.swiftpm
+Package.resolved
+
+# CocoaPods dependencies
+Pods/
+Podfile.lock
+
+# Carthage dependencies
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Archives and generated files
+*.xcarchive
+*.ipa
+
+# Shared schemes for collaboration (keeping shared schemes to share build settings)
+!*.xcodeproj/xcshareddata/xcschemes/*.xcscheme
+
+# Temporary files (logs, intermediates)
+*.tmp
+*.log

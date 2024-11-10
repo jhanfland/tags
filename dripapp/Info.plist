@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- Existing Google Sign-In Configuration -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>com.google.signin</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.344011974697-caukrh71gk6q7kab74fp2qb35i6gp31t</string>
+            </array>
+        </dict>
+        <!-- Auth0 Configuration -->
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLName</key>
+            <string>ai.dripdemo.dripapp</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>ai.dripdemo.dripapp</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Existing Firebase Configuration -->
+    <key>FirebaseAppDelegateProxyEnabled</key>
+    <false/>
+    <key>GIDClientID</key>
+    <string>344011974697-caukrh71gk6q7kab74fp2qb35i6gp31t.apps.googleusercontent.com</string>
+
+    <!-- Existing App Transport Security Configuration -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+    </dict>
+
+    <!-- Auth0 LSApplicationQueriesSchemes Configuration -->
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>ai.dripdemo.dripapp</string>
+    </array>
+</dict>
+</plist>
