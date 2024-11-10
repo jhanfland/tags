@@ -1,7 +1,7 @@
 # macOS system files
 .DS_Store
 config.plist
-
+dripapp.xcodeproj/xcshareddata/xcschemes/dripapp.xcscheme
 # Xcode build files
 build/
 DerivedData/
